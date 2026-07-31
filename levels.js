@@ -8,6 +8,7 @@ const LEVELS = {
     ],
     deck: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
   },
+  
   nstamp_002: {
     grid: { rows: 2, cols: 2 },
     rocks: [
@@ -17,6 +18,7 @@ const LEVELS = {
     ],
     deck: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
   },
+  
   nstamp_003: {
     grid: { rows: 3, cols: 3 },
     rocks: [
@@ -26,6 +28,7 @@ const LEVELS = {
     ],
     deck: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
   },
+  
   nstamp_004: {
   grid: { rows: 3, cols: 3 },
   rocks: [
@@ -35,7 +38,8 @@ const LEVELS = {
   ],
   deck: [2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4]
 },
-nstamp_005: {
+
+  nstamp_005: {
   grid: { rows: 3, cols: 3 },
   rocks: [
     { pos: [0,1], value: 16 },
@@ -44,6 +48,7 @@ nstamp_005: {
   ],
   deck: [4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2,4,2]
 },
+  
 nstamp_006: {
   grid: { rows: 3, cols: 3 },
   rocks: [
