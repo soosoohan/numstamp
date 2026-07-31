@@ -26,6 +26,27 @@
   h1 { font-size: 1.6rem; color: #f0c040; margin-bottom: 10px; letter-spacing: 2px; }
   #status-area { margin-bottom: 14px; font-size: 1rem; color: #ccc; text-align: center; }
   #status-area .rocks-left { color: #f0c040; font-weight: bold; }
+#queue-area {
+  display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-end;
+}
+.queue-slot { display: flex; flex-direction: column; align-items: center; }
+.queue-label { font-size: 0.75rem; color: #888; margin-bottom: 4px; text-align: center; }
+.queue-card {
+  width: 48px; height: 48px; border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem; font-weight: bold;
+  background: #444; color: #888; transition: all 0.3s;
+}
+.queue-card.active { transform: scale(1.1); box-shadow: 0 0 12px rgba(240,192,64,0.6); }
+
+.mute-button {
+  position: absolute; top: 20px; right: 20px;
+  padding: 8px 10px; font-size: 1.6em;
+  background-color: #1a1a2e; color: #CFF9FF;
+  border-radius: 12px; border: none; cursor: pointer;
+  z-index: 100;
+}
+.mute-button:hover { background-color: #1baf8f; color: #fff; }
 
   #grid {
     display: grid;
@@ -85,8 +106,25 @@
 <body onload="init()">
 
 <button class="back-button" onclick="location.href='index.html'">←</button>
+ <button class="back-button" onclick="location.href='index.html'">←</button>
+<button class="mute-button" id="mute-btn" onclick="toggleMute()">🔊</button>
+
 <h1 id="level-title">넘스탬프</h1>
 <div id="status-area">남은 바위: <span class="rocks-left" id="rocks-left">3</span></div>
+<div id="queue-area">
+  <div class="queue-slot">
+    <div class="queue-label">다음</div>
+    <div class="queue-card active" id="q0"></div>
+  </div>
+  <div class="queue-slot">
+    <div class="queue-label"></div>
+    <div class="queue-card" id="q1"></div>
+  </div>
+  <div class="queue-slot">
+    <div class="queue-label"></div>
+    <div class="queue-card" id="q2"></div>
+  </div>
+</div>
 
 <div id="col-buttons"></div>
 <div id="grid"></div>
@@ -134,10 +172,18 @@ function getColor(val) { return COLOR_MAP[val] || { bg:'#f0c040', fg:'#1a1a2e' }
 
 // ── 사운드 (합체 시에만) ──────────────────────────────
 let audioCtx = null;
+let muted = false;            
+function toggleMute() {          
+  muted = !muted;
+  document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊';
+  localStorage.setItem('numstamp_muted', muted ? '1' : '0');
+}
+
 function ensureAudio() {
   if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 }
 function playMergeSound(value) {
+  if (muted) return; 
   ensureAudio();
   const now = audioCtx.currentTime;
 
@@ -169,6 +215,9 @@ function playMergeSound(value) {
 let board, deckIndex, selectedCol, gameOver, isMobile, rocksRemaining;
 
 function init() {
+  muted = localStorage.getItem('numstamp_muted') === '1';              
+  document.getElementById('mute-btn').textContent = muted ? '🔇' : '🔊'; 
+
   gameOver = false;
   selectedCol = 0;
   deckIndex = 0;
@@ -192,6 +241,7 @@ function init() {
   buildGrid();
   buildColButtons();
   renderBoard();
+  updateQueueUI();
   highlightCol();
 }
 
@@ -199,6 +249,15 @@ function nextCard() {
   const card = level.deck[deckIndex % level.deck.length];
   deckIndex++;
   return card;
+}
+function updateQueueUI() {
+  for (let i = 0; i < 3; i++) {
+    const el = document.getElementById(`q${i}`);
+    if (!el) continue;
+    const val = level.deck[(deckIndex + i) % level.deck.length];
+    el.textContent = val;
+    el.className = 'queue-card' + (i === 0 ? ' active' : '');
+  }
 }
 
 function buildGrid() {
@@ -274,7 +333,8 @@ function dropCard() {
 
   const col = selectedCol;
   const cardVal = nextCard();
-
+  updateQueueUI(); 
+ 
   let targetRow = -1;
   for (let r = 0; r < ROWS; r++) {
     const cell = board[r][col];
