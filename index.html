@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>넘스탬프 | 수수랜드</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #1a1a2e;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  h1 { font-size: 2rem; color: #f0c040; margin-bottom: 6px; letter-spacing: 2px; }
+  p.subtitle { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
+
+  #level-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
+    gap: 12px;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .level-btn {
+    padding: 16px 8px;
+    border-radius: 12px;
+    border: none;
+    background: #2a2a4a;
+    color: #ccc;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .level-btn:hover { background: #3a3a6a; }
+  .level-btn.cleared { background: #2e7d32; color: #fff; }
+  .level-btn .stars { display: block; font-size: 0.8rem; margin-top: 4px; color: #f0c040; }
+
+  footer { text-align: center; color: #666; font-size: 0.8rem; margin-top: 30px; }
+</style>
+</head>
+<body>
+
+<h1>넘스탬프</h1>
+<p class="subtitle">넘스톤 시리즈로 만든 여행</p>
+
+<div id="level-grid"></div>
+
+<footer>© 2026 Han Soosoo. All rights reserved.</footer>
+
+<script src="levels.js"></script>
+<script>
+  const grid = document.getElementById('level-grid');
+
+  LEVEL_IDS.forEach(id => {
+    const btn = document.createElement('button');
+    btn.className = 'level-btn';
+
+    const stars = parseInt(localStorage.getItem(id + '_stars') || '0', 10);
+    const num = id.replace('nstamp_', '');
+
+    btn.innerHTML = `${num}<span class="stars">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span>`;
+    if (stars === 3) btn.classList.add('cleared');
+
+    btn.onclick = () => location.href = `play.html?id=${id}`;
+    grid.appendChild(btn);
+  });
+</script>
+
+</body>
+</html>
