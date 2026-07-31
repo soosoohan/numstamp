@@ -311,16 +311,17 @@ function runMergeLoop(newR, newC, mergeSet, breakSet) {
         const nb = board[nr][nc];
 
         if (nb.isRock) {
-          if (nb.rockValue === val) {
-            board[nr][nc] = { value:0, isRock:false, rockValue:null };
-            board[r][c] = { value:0, isRock:false, rockValue:null };
-            breakSet.add(`${nr}-${nc}`);
-            rocksRemaining--;
-            document.getElementById('rocks-left').textContent = rocksRemaining;
-            playMergeSound(val);
-          }
-          continue;
-        }
+  if (nb.rockValue === val) {
+    board[nr][nc] = { value: val, isRock: false, rockValue: null }; 
+    board[r][c] = { value: 0, isRock: false, rockValue: null }; 
+    breakSet.add(`${nr}-${nc}`);
+    rocksRemaining--;
+    document.getElementById('rocks-left').textContent = rocksRemaining;
+    playMergeSound(val);
+    next.push({ r: nr, c: nc });
+  }
+  continue;
+}
 
         if (nb.value === val) {
           const newVal = val * 2;
