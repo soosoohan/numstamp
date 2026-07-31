@@ -22,14 +22,14 @@ const LEVELS = {
     rocks: [
       { pos: [1,1], value: 8 },
       { pos: [1,2], value: 16 },
-      { pos: [2,1], value: 32 }
+      { pos: [2,1], value: 16 }
     ],
     deck: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
   },
   nstamp_004: {
   grid: { rows: 3, cols: 3 },
   rocks: [
-    { pos: [0,0], value: 8 },
+    { pos: [2,1], value: 8 },
     { pos: [1,1], value: 16 },
     { pos: [2,2], value: 8 }
   ],
@@ -38,7 +38,7 @@ const LEVELS = {
 nstamp_005: {
   grid: { rows: 3, cols: 3 },
   rocks: [
-    { pos: [0,1], value: 16 },
+    { pos: [2,1], value: 16 },
     { pos: [1,0], value: 8 },
     { pos: [1,2], value: 8 }
   ],
@@ -47,7 +47,7 @@ nstamp_005: {
 nstamp_006: {
   grid: { rows: 3, cols: 3 },
   rocks: [
-    { pos: [0,0], value: 32 },
+    { pos: [2,1], value: 32 },
     { pos: [2,0], value: 8 },
     { pos: [2,2], value: 16 }
   ],
