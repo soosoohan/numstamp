@@ -76,6 +76,27 @@
   h1 { font-size: 2rem; color: #f0c040; margin-bottom: 6px; letter-spacing: 2px; }
   p.subtitle { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
 
+ #lang-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #2a2a4a;
+    border: 1px solid #444;
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: #f0c040;
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: background 0.2s;
+  }
+  #lang-toggle:hover { background: #3a3a6a; }
+
+  .lang-ko, .lang-en { transition: opacity 0.2s; }
+  body.en .lang-ko { display: none; }
+  body.ko .lang-en { display: none; }
+
+
   #level-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
@@ -102,10 +123,15 @@
   footer { text-align: center; color: #666; font-size: 0.8rem; margin-top: 30px; }
 </style>
 </head>
-<body>
+<body class="ko" onload="initLanguage()">
 
-<h1>넘스탬프(개발중)</h1>
-<p class="subtitle">넘스톤 시리즈로 만든 여행</p>
+<button id="lang-toggle" onclick="toggleLang()">English</button>
+
+<h1 class="lang-ko">넘스탬프(개발중)</h1>
+<h1 class="lang-en">NumStamp (In Development)</h1>
+
+<p class="subtitle lang-ko">넘스톤 시리즈로 만든 여행</p>
+<p class="subtitle lang-en">A Journey Built with the Numstone Series</p>
 <div id="level-grid"></div>
 
 <footer>© 2026 Han Soosoo. All rights reserved.</footer>
