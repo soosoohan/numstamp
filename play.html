@@ -208,7 +208,8 @@ function playMergeSound(value) {
 }
 
 // ── 상태 ──────────────────────────────
-let board, deckIndex, selectedCol, gameOver, isMobile, rocksRemaining;
+let board, deckIndex, selectedCol, gameOver, rocksRemaining;
+let isMobile = window.innerWidth <= 680 || 'ontouchstart' in window;
 
 function init() {
   muted = localStorage.getItem('numstamp_muted') === '1';              
@@ -230,8 +231,6 @@ function init() {
   rocksRemaining = level.rocks.length;
   document.getElementById('rocks-left').textContent = rocksRemaining;
 
-  isMobile = window.innerWidth <= 680 || 'ontouchstart' in window;
-  document.getElementById('drop-btn').style.display = isMobile ? 'block' : 'none';
   document.getElementById('pc-hint').style.display  = isMobile ? 'none'  : 'block';
 
   buildGrid();
@@ -281,7 +280,7 @@ function buildColButtons() {
     btn.addEventListener('click', () => {
       selectedCol = c;
       highlightCol();
-      if (isMobile) return;
+      if (!isMobile) return;
       dropCard();
     });
     container.appendChild(btn);
@@ -289,7 +288,13 @@ function buildColButtons() {
 }
 
 function highlightCol() {
-  document.querySelectorAll('.col-btn').forEach((btn, i) => btn.classList.toggle('selected', i === selectedCol));
+  document.querySelectorAll('.col-btn').forEach((btn, i) => {
+    if (isMobile) {
+      btn.classList.remove('selected');   
+    } else {
+      btn.classList.toggle('selected', i === selectedCol);  
+    }
+  });
 }
 
 function renderBoard(mergeSet, breakSet) {
@@ -457,12 +462,17 @@ function fireConfetti() {
 }
 
 document.addEventListener('keydown', e => {
+  if (['ArrowLeft','ArrowRight','Enter',' '].includes(e.key) && isMobile) {
+    isMobile = false;
+    document.getElementById('pc-hint').style.display = 'block';
+    highlightCol();  
+  }
+  
   if (gameOver) return;
   if (e.key === 'ArrowLeft') { e.preventDefault(); selectedCol = Math.max(0, selectedCol-1); highlightCol(); }
   if (e.key === 'ArrowRight') { e.preventDefault(); selectedCol = Math.min(COLS-1, selectedCol+1); highlightCol(); }
   if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); dropCard(); }
 });
-document.getElementById('drop-btn').addEventListener('click', dropCard);
 document.getElementById('restart-btn').addEventListener('click', init);
 </script>
 </body>
