@@ -97,6 +97,11 @@
     transform: scale(0.92);
     transition: transform 0.1s;
 }
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 60px;
+}
    
   h1 { font-size: 2rem; color: #f0c040; margin-bottom: 6px; letter-spacing: 2px; }
   p.subtitle { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
@@ -166,17 +171,18 @@
 </style>
 </head>
 <body class="ko" onload="initLanguage()">
-
+<button id="lang-toggle" onclick="toggleLang()">EN</button>
+<header>
 <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
-  <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
+<img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
 </button>
-  <button id="lang-toggle" onclick="toggleLang()">EN</button>
 
 <h1 class="lang-ko">넘스탬프(개발중)</h1>
 <h1 class="lang-en">NumStamp(Alpha)</h1>
 
 <p class="subtitle lang-ko">넘스톤 시리즈로 만든 여행</p>
 <p class="subtitle lang-en">A Journey Built with the Numstone Series</p>
+</header>
 <div id="level-grid"></div>
 
 <footer>© 2026 Han Soosoo. All rights reserved.</footer>
