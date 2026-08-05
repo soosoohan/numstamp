@@ -72,30 +72,34 @@
     padding: 20px;
   }
   .back-button {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        padding: 10px 20px;
-        font-size: 1em;
-        background-color: #FFD6BA;
-        color: #7A2E2E;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        z-index: 100;
-    }
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    padding: 8px 14px;
+    font-size: 0.85em;
+    background-color: #FFD6BA;
+    color: #7A2E2E;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 100;
+    max-width: 40%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
     .back-button:hover {
         background-color: #FF9494;
         color: white;
     }
-    header {
-        text-align: center;
-        margin-bottom: 40px;
-        padding-top: 20px;
-    }
-
+   
+header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-top: 56px; 
+}
   h1 { font-size: 2rem; color: #f0c040; margin-bottom: 6px; letter-spacing: 2px; }
   p.subtitle { color: #888; margin-bottom: 24px; font-size: 0.9rem; }
 
@@ -106,13 +110,14 @@
     background: #2a2a4a;
     border: 1px solid #444;
     border-radius: 20px;
-    padding: 6px 14px;
+    padding: 6px 12px;
     color: #f0c040;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     cursor: pointer;
     z-index: 100;
     transition: background 0.2s;
-  }
+    max-width: 30%;
+}
   #lang-toggle:hover { background: #3a3a6a; }
 
   .lang-ko, .lang-en { transition: opacity 0.2s; }
@@ -144,6 +149,21 @@
   .level-btn .stars { display: block; font-size: 1.2rem; margin-top: 4px; color: #f0c040; }
 
   footer { text-align: center; color: #666; font-size: 0.8rem; margin-top: 30px; }
+
+@media (max-width: 400px) {
+  .back-button {
+    font-size: 0.75em;
+    padding: 6px 10px;
+  }
+  #lang-toggle {
+    font-size: 0.7rem;
+    padding: 5px 10px;
+  }
+  header {
+    padding-top: 64px;
+  }
+  h1 { font-size: 1.6rem; }
+}
 </style>
 </head>
 <body class="ko" onload="initLanguage()">
