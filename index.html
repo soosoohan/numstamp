@@ -138,7 +138,33 @@
 
 <script src="levels.js"></script>
 <script>
-  const grid = document.getElementById('level-grid');
+  function toggleLang() {
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (body.classList.contains('ko')) {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한';
+    localStorage.setItem('soosoo-lang', 'en'); 
+  } else {
+    body.classList.replace('en', 'ko');
+    document.documentElement.lang = 'ko';
+    btn.textContent = 'EN';
+    localStorage.setItem('soosoo-lang', 'ko'); 
+  }
+}
+  function initLanguage() {
+  const saved = localStorage.getItem('soosoo-lang');
+  const lang = saved || (navigator.language.startsWith('ko') ? 'ko' : 'en');
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (lang === 'en') {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한';
+  }
+}
+const grid = document.getElementById('level-grid');
   const STAR_COLORS = ['#f0c040', '#f0900c', '#e6491f']; // 노랑, 주황, 주홍
 
   LEVEL_IDS.forEach(id => {
