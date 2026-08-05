@@ -27,7 +27,28 @@
   }
   .back-button:hover { background-color: #1baf8f; color: #fff; }
   h1 { font-size: 1.6rem; color: #f0c040; margin-bottom: 10px; letter-spacing: 2px; }
-  #status-area { margin-bottom: 14px; font-size: 1rem; color: #ccc; text-align: center; }
+  
+ #lang-toggle {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: #2a2a4a;
+    border: 1px solid #444;
+    border-radius: 20px;
+    padding: 6px 14px;
+    color: #f0c040;
+    font-size: 0.85rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: background 0.2s;
+  }
+  #lang-toggle:hover { background: #3a3a6a; }
+
+  .lang-ko, .lang-en { transition: opacity 0.2s; }
+  body.en .lang-ko { display: none; }
+  body.ko .lang-en { display: none; }
+
+ #status-area { margin-bottom: 14px; font-size: 1rem; color: #ccc; text-align: center; }
   #status-area .rocks-left { color: #f0c040; font-weight: bold; }
 #queue-area {
   display: flex; gap: 10px; margin-bottom: 16px; align-items: flex-end;
@@ -101,16 +122,27 @@
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 
-<body onload="init()">
+<body onload="init() initLanguage()" class="ko">
+
+<button id="lang-toggle" onclick="toggleLang()">English</button>
 
 <button class="back-button" onclick="location.href='index.html'">←</button>
 <button class="mute-button" id="mute-btn" onclick="toggleMute()">🔊</button>
 
-<h1 id="level-title">넘스탬프</h1>
-<div id="status-area">남은 바위: <span class="rocks-left" id="rocks-left">3</span></div>
+<h1 id="level-title" class="lang-ko">넘스탬프</h1>
+<h1 id="level-title" class="lang-en">NumStamp</h1>
+
+<div id="status-area">
+  <p class="lang-ko">남은 바위 :</p>
+ <p class="lang-en">Rocks left :</p>
+
+<span class="rocks-left" id="rocks-left">3</span></div>
 <div id="queue-area">
   <div class="queue-slot">
-    <div class="queue-label">다음</div>
+    <div class="queue-label">
+ <p class="lang-ko">다음 카드</p>
+ <p class="lang-en">Next Cards</p>
+</div>
     <div class="queue-card active" id="q0"></div>
   </div>
   <div class="queue-slot">
@@ -126,17 +158,25 @@
 <div id="grid"></div>
 <div id="col-buttons"></div>
 
-<div id="pc-hint">
+<div id="pc-hint" class="lang-ko">
   ← → 방향키로 열 선택 &nbsp;|&nbsp; 스페이스바나 엔터키로 낙하<br>
   모바일: ▼ 열 버튼 탭
 </div>
-
+<div id="pc-hint" class="lang-en">
+ 
+</div>
 <div id="overlay">
-  <h2>🎉 클리어!</h2>
+ <h2 class="lang-ko">🎉 클리어!</h2>
+ <h2 class="lang-en">🎉 Clear!</h2>
   <div class="stars-result" id="stars-result"></div>
   <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center;">
-    <button id="restart-btn">다시 도전</button>
-    <button id="index-btn" onclick="location.href='index.html'">목록으로</button>
+    <button id="restart-btn">
+     <p class="lang-ko">다시 도전</p>
+ <p class="lang-en">Try Again</p> </button>
+    <button id="index-btn" onclick="location.href='index.html'">
+     <p class="lang-ko">목록으로</p>
+ <p class="lang-en">As a list</p>
+</button>
   </div>
 </div>
 
@@ -144,6 +184,33 @@
 
 <script src="levels.js"></script>
 <script>
+
+function toggleLang() {
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (body.classList.contains('ko')) {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한국어';
+    localStorage.setItem('soosoo-lang', 'en'); 
+  } else {
+    body.classList.replace('en', 'ko');
+    document.documentElement.lang = 'ko';
+    btn.textContent = 'English';
+    localStorage.setItem('soosoo-lang', 'ko'); 
+  }
+}
+  function initLanguage() {
+  const saved = localStorage.getItem('soosoo-lang');
+  const lang = saved || (navigator.language.startsWith('ko') ? 'ko' : 'en');
+  const body = document.body;
+  const btn = document.getElementById('lang-toggle');
+  if (lang === 'en') {
+    body.classList.replace('ko', 'en');
+    document.documentElement.lang = 'en';
+    btn.textContent = '한국어';
+  }
+}
 // ── 레벨 로드 ──────────────────────────────
 function getLevelId() {
   const params = new URLSearchParams(location.search);
