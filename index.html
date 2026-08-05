@@ -173,7 +173,7 @@ header {
 </style>
 </head>
 <body class="ko" onload="initLanguage()">
-<button id="lang-toggle" onclick="toggleLang()">EN</button>
+<button id="lang-toggle" onclick="toggleLang()">English</button>
 <header>
 <button class="back-button" onclick="location.href='https://soosooland.com/'" aria-label="수수랜드 홈으로">
 <img src="https://soosooland.com/images/home.png" alt="수수랜드 홈">
@@ -197,12 +197,12 @@ header {
   if (body.classList.contains('ko')) {
     body.classList.replace('ko', 'en');
     document.documentElement.lang = 'en';
-    btn.textContent = '한';
+    btn.textContent = '한국어';
     localStorage.setItem('soosoo-lang', 'en'); 
   } else {
     body.classList.replace('en', 'ko');
     document.documentElement.lang = 'ko';
-    btn.textContent = 'EN';
+    btn.textContent = 'English';
     localStorage.setItem('soosoo-lang', 'ko'); 
   }
 }
