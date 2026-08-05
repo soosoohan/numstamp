@@ -75,6 +75,7 @@
 <script src="levels.js"></script>
 <script>
   const grid = document.getElementById('level-grid');
+  const STAR_COLORS = ['#f0c040', '#f0900c', '#e6491f']; // 노랑, 주황, 주홍
 
   LEVEL_IDS.forEach(id => {
     const btn = document.createElement('button');
@@ -83,7 +84,16 @@
     const stars = parseInt(localStorage.getItem(id + '_stars') || '0', 10);
     const num = id.replace('nstamp_', '');
 
-    btn.innerHTML = `${num}<span class="stars">${'★'.repeat(stars)}${'☆'.repeat(3 - stars)}</span>`;
+    let starsHTML = '';
+    for (let i = 0; i < 3; i++) {
+      if (i < stars) {
+        starsHTML += `<span style="color:${STAR_COLORS[i]}">★</span>`;
+      } else {
+        starsHTML += `<span style="color:#555">☆</span>`;
+      }
+    }
+
+    btn.innerHTML = `${num}<span class="stars">${starsHTML}</span>`;
     if (stars === 3) btn.classList.add('cleared');
 
     btn.onclick = () => location.href = `play.html?id=${id}`;
