@@ -441,18 +441,21 @@ function runMergeLoop(newR, newC, mergeSet, breakSet) {
           if (nr<0 || nr>=ROWS || nc<0 || nc>=COLS) continue;
           const nb = board[nr][nc];
 
-          if (nb.isRock && nb.rockValue === val) {
-            board[nr][nc] = { value: val, isRock: false, rockValue: null };
-            board[r][c] = { value: 0, isRock: false, rockValue: null };
-            breakSet.add(`${nr}-${nc}`);
-            rocksRemaining--;
-            document.getElementById('rocks-left').textContent = rocksRemaining;
-            playMergeSound(val);
-            changed = true;
-            break outer;
+          if (nb.isRock) {
+            if (nb.rockValue === val) {
+              board[nr][nc] = { value: val, isRock: false, rockValue: null };
+              board[r][c] = { value: 0, isRock: false, rockValue: null };
+              breakSet.add(`${nr}-${nc}`);
+              rocksRemaining--;
+              document.getElementById('rocks-left').textContent = rocksRemaining;
+              playMergeSound(val);
+              changed = true;
+              break outer;
+            }
+            continue;
           }
 
-          if (!nb.isRock && nb.value === val) {
+          if (nb.value === val) {
             const newVal = val * 2;
             board[nr][nc] = { value: newVal, isRock: false, rockValue: null };
             board[r][c] = { value: 0, isRock: false, rockValue: null };
@@ -464,7 +467,7 @@ function runMergeLoop(newR, newC, mergeSet, breakSet) {
         }
       }
     }
-    applyGravityAll();
+    if (changed) applyGravityAll();
   }
 }
 
