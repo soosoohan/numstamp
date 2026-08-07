@@ -101,7 +101,7 @@ nstamp_009: {
   nstamp_012: {
     grid: { rows: 4, cols: 4 },
     rocks: [
-      { pos: [1,1], value: 32 },
+      { pos: [2,1], value: 32 },
       { pos: [3,2], value: 8 },
       { pos: [3,1], value: 16 }
     ],
