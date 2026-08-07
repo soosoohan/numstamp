@@ -113,10 +113,19 @@
   #pc-hint { margin-top: 12px; font-size: 0.8rem; color: #666; text-align: center; line-height: 1.6; }
 
   #overlay {
-    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.2);
-    align-items: center; justify-content: center; flex-direction: column; gap: 14px;
-    z-index: 100; padding: 20px; text-align: center;
-  }
+  display: none; 
+  position: fixed; 
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  align-items: center; 
+  justify-content: flex-end; 
+  flex-direction: column; 
+  gap: 14px;
+  z-index: 100; 
+  padding: 20px; 
+  padding-bottom: 60px;      
+  text-align: center;
+}
   #overlay.show { display: flex; }
   #overlay h2 { font-size: 2rem; color: #f0c040; }
   #overlay .stars-result { font-size: 2.2rem; color: #f0c040; letter-spacing: 4px; }
