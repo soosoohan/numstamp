@@ -491,6 +491,24 @@ function runMergeLoop(newR, newC, mergeSet, breakSet) {
       }
     }
     applyGravityAll();
+
+    // 중력 이동으로 새로 인접하게 된 쌍이 있는지 전체 재확인 (놓친 병합 방지)
+    if (next.length === 0) {
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          const cell = board[r][c];
+          if (cell.value === 0 || cell.isRock) continue;
+          const val = cell.value;
+          if (
+            (r + 1 < ROWS && !board[r+1][c].isRock && board[r+1][c].value === val) ||
+            (c + 1 < COLS && !board[r][c+1].isRock && board[r][c+1].value === val)
+          ) {
+            next.push({ r, c });
+          }
+        }
+      }
+    }
+
     q = next;
   }
 }
