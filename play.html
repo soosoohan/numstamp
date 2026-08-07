@@ -63,8 +63,7 @@
 }
 .queue-card.active { transform: scale(1.1); box-shadow: 0 0 12px rgba(240,192,64,0.6); }
 
-.mute-button {
-  position: absolute; top: 20px; right: 20px;
+.mute-button { position: absolute; top: 16px; right: 100px; 
   padding: 8px 10px; font-size: 1.6em;
   background-color: #1a1a2e; color: #CFF9FF;
   border-radius: 12px; border: none; cursor: pointer;
@@ -148,10 +147,10 @@
 <h1 id="level-title" class="lang-en">NumStamp</h1>
 
 <div id="status-area">
-  <p class="lang-ko">남은 바위 :</p>
- <p class="lang-en">Rocks left :</p>
-
-<span class="rocks-left" id="rocks-left">3</span></div>
+  <span class="lang-ko">남은 바위 :</span>
+  <span class="lang-en">Rocks left :</span>
+  <span class="rocks-left" id="rocks-left">3</span>
+</div>
 <div id="queue-area">
   <div class="queue-slot">
     <div class="queue-label">
@@ -173,11 +172,9 @@
 <div id="grid"></div>
 <div id="col-buttons"></div>
 
-<div id="pc-hint" class="lang-ko">
-   ← → 방향키 열 선택 | 스페이스바 /엔터키 낙하<br>
-</div>
-<div id="pc-hint" class="lang-en">
- ← → Arrow keys to select column | Space / Enter to drop<br>
+<div id="pc-hint">
+  <span class="lang-ko">← → 방향키 열 선택 | 스페이스바 /엔터키 낙하<br></span>
+  <span class="lang-en">← → Arrow keys to select column | Space / Enter to drop<br></span>
 </div>
 <div id="overlay">
  <h2 class="lang-ko">🎉 클리어!</h2>
