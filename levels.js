@@ -85,7 +85,6 @@ nstamp_009: {
     rocks: [
       { pos: [3,1], value: 8 },
       { pos: [2,1], value: 16 },
-      { pos: [3,2], value: 8 },
       { pos: [1,3], value: 32 }
     ],
     deck: [2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8]
@@ -95,8 +94,7 @@ nstamp_009: {
     rocks: [
       { pos: [3,0], value: 16 },
       { pos: [3,3], value: 16 },
-      { pos: [2,1], value: 8 },
-      { pos: [2,2], value: 8 }
+      { pos: [2,1], value: 8 }
     ],
     deck: [4,2,8,4,2,8,4,2,8,4,2,8,4,2,8,4,2,8,4,2,8,4,2,8]
   },
@@ -104,7 +102,6 @@ nstamp_009: {
     grid: { rows: 4, cols: 4 },
     rocks: [
       { pos: [1,1], value: 32 },
-      { pos: [2,0], value: 8 },
       { pos: [3,3], value: 8 },
       { pos: [3,1], value: 16 }
     ],
@@ -115,8 +112,7 @@ nstamp_009: {
     rocks: [
       { pos: [3,0], value: 8 },
       { pos: [3,4], value: 8 },
-      { pos: [2,2], value: 16 },
-      { pos: [1,3], value: 8 }
+      { pos: [2,2], value: 16 }
     ],
     deck: [2,4,8,4,2,4,8,4,2,4,8,4,2,4,8,4,2,4,8,4,2,4,8,4]
   },
@@ -125,8 +121,6 @@ nstamp_009: {
     rocks: [
       { pos: [3,1], value: 16 },
       { pos: [3,3], value: 16 },
-      { pos: [2,0], value: 8 },
-      { pos: [2,4], value: 8 },
       { pos: [1,2], value: 32 }
     ],
     deck: [4,4,2,8,4,4,2,8,4,4,2,8,4,4,2,8,4,4,2,8,4,4,2,8]
@@ -144,7 +138,6 @@ nstamp_009: {
     grid: { rows: 5, cols: 3 },
     rocks: [
       { pos: [4,1], value: 32 },
-      { pos: [3,0], value: 8 },
       { pos: [3,2], value: 8 },
       { pos: [2,1], value: 16 }
     ],
@@ -155,7 +148,6 @@ nstamp_009: {
     rocks: [
       { pos: [4,0], value: 16 },
       { pos: [4,3], value: 16 },
-      { pos: [3,1], value: 8 },
       { pos: [3,2], value: 8 }
     ],
     deck: [2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8,2,4,8]
@@ -163,8 +155,6 @@ nstamp_009: {
   nstamp_018: {
     grid: { rows: 5, cols: 4 },
     rocks: [
-      { pos: [4,1], value: 8 },
-      { pos: [4,2], value: 8 },
       { pos: [3,0], value: 16 },
       { pos: [3,3], value: 16 },
       { pos: [2,1], value: 32 }
@@ -174,8 +164,6 @@ nstamp_009: {
   nstamp_019: {
     grid: { rows: 5, cols: 5 },
     rocks: [
-      { pos: [4,0], value: 8 },
-      { pos: [4,4], value: 8 },
       { pos: [3,2], value: 16 },
       { pos: [2,1], value: 8 },
       { pos: [2,3], value: 8 }
@@ -186,8 +174,6 @@ nstamp_009: {
     grid: { rows: 5, cols: 5 },
     rocks: [
       { pos: [4,1], value: 16 },
-      { pos: [4,3], value: 16 },
-      { pos: [3,0], value: 8 },
       { pos: [3,4], value: 8 },
       { pos: [1,2], value: 32 }
     ],
