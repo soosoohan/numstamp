@@ -132,6 +132,8 @@
   .merge-anim { animation: merge-pop 0.2s ease; }
   @keyframes rock-break { 0%{transform:scale(1);opacity:1;} 100%{transform:scale(1.4);opacity:0;} }
   .rock-break-anim { animation: rock-break 0.3s ease; }
+ @media (max-width: 480px) { h1 { margin-top: 50px; }}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
@@ -143,8 +145,10 @@
 <button class="back-button" onclick="location.href='index.html'">←</button>
 <button class="mute-button" id="mute-btn" onclick="toggleMute()">🔊</button>
 
-<h1 id="level-title" class="lang-ko">넘스탬프</h1>
-<h1 id="level-title" class="lang-en">NumStamp</h1>
+<h1>
+  <span class="lang-ko" id="level-title-ko">넘스탬프</span>
+  <span class="lang-en" id="level-title-en">NumStamp</span>
+</h1>
 
 <div id="status-area">
   <span class="lang-ko">남은 바위 :</span>
@@ -232,7 +236,9 @@ const level = LEVELS[LEVEL_ID];
 const ROWS = level.grid.rows;
 const COLS = level.grid.cols;
 
-document.getElementById('level-title').textContent = `넘스탬프 · ${LEVEL_ID.replace('nstamp_','')}`;
+const levelNum = LEVEL_ID.replace('nstamp_', '');
+document.getElementById('level-title-ko').textContent = `넘스탬프 · ${levelNum}`;
+document.getElementById('level-title-en').textContent = `NumStamp · ${levelNum}`;
 
 // ── 색상 맵 ──────────────────────────────
 const COLOR_MAP = {
