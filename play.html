@@ -90,12 +90,26 @@
   }
 
   #col-buttons { display: flex; gap: 4px; margin-bottom: 6px; }
-  .col-btn {
-    width: 64px; height: 60px; border-radius: 8px; border: none;
-    background: #2a2a4a; color: #666; font-size: 1.3rem; cursor: pointer;
+    .col-btn {
+    width: 64px;
+    height: 60px;
+    border-radius: 8px;
+    border: none;
+    background: #2a2a4a;
+    color: #db74bc;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    line-height: 1;
+    padding: 0;
   }
-  .col-btn.selected { background: #b3933e; color: #1a1a2e; transform: translateY(3px); }
-
+  .col-btn.selected {
+    background: #b3933e;
+    color: #1a1a2e;
+    transform: translateY(4px);
+    box-shadow: 0 4px 12px rgba(240,192,64,0.5);
+  }
+  .col-btn:hover:not(.selected) { background: #3a3a6a; color: #db74bc; }
   #pc-hint { margin-top: 12px; font-size: 0.8rem; color: #666; text-align: center; line-height: 1.6; }
 
   #overlay {
