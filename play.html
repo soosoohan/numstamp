@@ -90,26 +90,12 @@
   }
 
   #col-buttons { display: flex; gap: 4px; margin-bottom: 6px; }
-    .col-btn {
-    width: 64px;
-    height: 60px;
-    border-radius: 8px;
-    border: none;
-    background: #2a2a4a;
-    color: #db74bc;
-    font-size: 1.8rem;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    line-height: 1;
-    padding: 0;
+  .col-btn {
+    width: 64px; height: 60px; border-radius: 8px; border: none;
+    background: #2a2a4a; color: #666; font-size: 1.3rem; cursor: pointer;
   }
-  .col-btn.selected {
-    background: #b3933e;
-    color: #1a1a2e;
-    transform: translateY(4px);
-    box-shadow: 0 4px 12px rgba(240,192,64,0.5);
-  }
-  .col-btn:hover:not(.selected) { background: #3a3a6a; color: #db74bc; }
+  .col-btn.selected { background: #b3933e; color: #1a1a2e; transform: translateY(3px); }
+
   #pc-hint { margin-top: 12px; font-size: 0.8rem; color: #666; text-align: center; line-height: 1.6; }
 
   #overlay {
@@ -173,10 +159,11 @@
 <div id="col-buttons"></div>
 
 <div id="pc-hint" class="lang-ko">
-  ← → 방향키 열 선택 | 스페이스바 /엔터키 낙하<br>
+  ← → 방향키로 열 선택 &nbsp;|&nbsp; 스페이스바나 엔터키로 낙하<br>
+  모바일: ▼ 열 버튼 탭
 </div>
 <div id="pc-hint" class="lang-en">
- ← → Arrow keys to select column | Space / Enter to drop<br>
+ 
 </div>
 <div id="overlay">
  <h2 class="lang-ko">🎉 클리어!</h2>
