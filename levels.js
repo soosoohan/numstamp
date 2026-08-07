@@ -146,9 +146,9 @@ nstamp_009: {
   nstamp_017: {
     grid: { rows: 5, cols: 4 },
     rocks: [
-      { pos: [4,0], value: 16 },
-      { pos: [4,3], value: 16 },
-      { pos: [3,2], value: 8 }
+      { pos: [4,0], value:32 },
+      { pos: [4,3], value: 32 },
+      { pos: [3,2], value: 16 }
     ],
     deck: [2,4,8,4,2,4,8,8,2,4,8,2,4,4,8,2,8,4,8,2,4,4,8,2,4,8,8,2,4,8]
   },
