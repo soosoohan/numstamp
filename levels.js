@@ -1,10 +1,10 @@
 const LEVELS = {
   nstamp_001: {
-    grid: { rows: 5, cols: 1 },
+    grid: { rows: 3, cols: 3 },
     rocks: [
-      { pos: [4,0], value: 16 },
-      { pos: [3,0], value: 8 },
-      { pos: [2,0], value: 4 }
+      { pos: [2,0], value: 16 },
+      { pos: [2,1], value: 8 },
+      { pos: [2,2], value: 4 }
     ],
     deck: [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2]
   },
