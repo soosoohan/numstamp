@@ -297,6 +297,16 @@ const levelNum = LEVEL_ID.replace('nstamp_', '');
 document.getElementById('level-title-ko').textContent = `넘스탬프 · ${levelNum}`;
 document.getElementById('level-title-en').textContent = `NumStamp · ${levelNum}`;
 
+const SPECIAL_CARDS = {
+  fruit2: { type:'fruit', mult:2, symbol:'🍎' },
+  fruit4: { type:'fruit', mult:4, symbol:'🍒' },
+  fruit8: { type:'fruit', mult:8, symbol:'🍇' },
+  bomb2:  { type:'bomb',  div:2,  symbol:'🔥' },
+  bomb4:  { type:'bomb',  div:4,  symbol:'💥' },
+  bombX:  { type:'bomb',  div:0,  symbol:'⚡' }
+};
+function isSpecial(val) { return typeof val === 'string' && SPECIAL_CARDS[val]; }
+
 // ── 색상 맵 ──────────────────────────────
 const COLOR_MAP = {
   2:{bg:'#B8E986',fg:'#2F4F1F'}, 4:{bg:'#7ED957',fg:'#FFFFFF'},
@@ -362,7 +372,7 @@ function init() {
   document.getElementById('overlay').classList.remove('show');
 
   board = Array.from({ length: ROWS }, () =>
-    Array.from({ length: COLS }, () => ({ value: 0, isRock: false, rockValue: null }))
+  Array.from({ length: COLS }, () => ({ value: 0, isRock: false, rockValue: null, special: null }))
   );
 
   level.rocks.forEach(({ pos, value }) => {
@@ -386,12 +396,13 @@ function nextCard() {
   deckIndex++;
   return card;
 }
+
 function updateQueueUI() {
   for (let i = 0; i < 3; i++) {
     const el = document.getElementById(`q${i}`);
     if (!el) continue;
     const val = level.deck[(deckIndex + i) % level.deck.length];
-    el.textContent = val;
+    el.textContent = isSpecial(val) ? SPECIAL_CARDS[val].symbol : val;
     el.className = 'queue-card' + (i === 0 ? ' active' : '');
   }
 }
@@ -453,13 +464,18 @@ function renderBoard(mergeSet, breakSet) {
         el.style.color = '#f0c040';
         el.style.border = '3px solid #888';
         el.textContent = d.rockValue;
-      } else if (d.value > 0) {
-        const col = getColor(d.value);
-        el.style.background = col.bg;
-        el.style.color = col.fg;
-        el.style.border = 'none';
-        el.textContent = d.value;
-      } else {
+} else if (d.special) {
+  el.style.background = '#3a2a4a';
+  el.style.color = '#fff';
+  el.style.border = 'none';
+  el.textContent = SPECIAL_CARDS[d.special].symbol;
+} else if (d.value > 0) {
+  const col = getColor(d.value);
+  el.style.background = col.bg;
+  el.style.color = col.fg;
+  el.style.border = 'none';
+  el.textContent = d.value;
+} else {
         el.style.background = '#222';
         el.style.color = '#555';
         el.style.border = 'none';
@@ -487,16 +503,22 @@ function dropCard() {
     if (r === ROWS - 1) targetRow = r;
   }
   if (targetRow === -1) { checkGameOver(); return; }
-
-  board[targetRow][col] = { value: cardVal, isRock: false, rockValue: null };
-
   const mergeSet = new Set();
-  const breakSet = new Set();
-  runMergeLoop(targetRow, col, mergeSet, breakSet);
+const breakSet = new Set();
 
-  renderBoard(mergeSet, breakSet);
-  checkClear();
-  checkGameOver();
+if (isSpecial(cardVal)) {
+  board[targetRow][col] = { value: 0, isRock: false, rockValue: null, special: cardVal };
+  triggerSpecialCard(targetRow, col, mergeSet); // 발동 즉시 자신도 소멸
+  applyGravityAll();
+  sweepMerges(mergeSet, breakSet); // 중력으로 새로 붙은 쌍 체크
+} else {
+  board[targetRow][col] = { value: cardVal, isRock: false, rockValue: null, special: null };
+  runMergeLoop(targetRow, col, mergeSet, breakSet);
+}
+
+renderBoard(mergeSet, breakSet);
+checkClear();
+checkGameOver();
 }
 
 function runMergeLoop(newR, newC, mergeSet, breakSet) {
@@ -559,6 +581,34 @@ function runMergeLoop(newR, newC, mergeSet, breakSet) {
     }
 
     q = next;
+  }
+}
+function triggerSpecialCard(r, c, effectSet) {
+  const special = SPECIAL_CARDS[board[r][c].special];
+  const dirs = [[-1,0],[1,0],[0,-1],[0,1]];
+  for (const [dr,dc] of dirs) {
+    const nr=r+dr, nc=c+dc;
+    if (nr<0||nr>=ROWS||nc<0||nc>=COLS) continue;
+    const nb = board[nr][nc];
+    if (nb.isRock || nb.value===0) continue;
+
+    let newVal = special.type==='fruit'
+      ? Math.min(nb.value*special.mult, 2048)
+      : (special.div===0 ? 0 : Math.floor(nb.value/special.div));
+    if (special.type==='bomb' && newVal<2) newVal = 0;
+
+    board[nr][nc] = { value:newVal, isRock:false, rockValue:null, special:null };
+    effectSet.add(`${nr}-${nc}`);
+    if (newVal >= 256) fireConfetti();
+  }
+  board[r][c] = { value:0, isRock:false, rockValue:null, special:null };
+}
+
+function sweepMerges(mergeSet, breakSet) {
+  for (let r=0; r<ROWS; r++) {
+    for (let c=0; c<COLS; c++) {
+      if (board[r][c].value > 0) runMergeLoop(r, c, mergeSet, breakSet);
+    }
   }
 }
 
