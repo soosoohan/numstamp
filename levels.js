@@ -269,9 +269,6 @@ deck: [8,4,2,'fruit2',4,8,2,4,4,'fruit2',8,2,8,4,2,4,8,'fruit2',4,2,8,2,'fruit2'
     ],
     deck: [8,4,2,4,8,2,4,8,2,4,4,8,2,8,4,2,4,8,2,4,8]
   }
-
-
-
 };
 
 const LEVEL_IDS = Object.keys(LEVELS);
